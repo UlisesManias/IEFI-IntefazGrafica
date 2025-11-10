@@ -11,20 +11,6 @@ Requisitos mínimos:
 Dependencias:
 - No se usan librerías externas aparte de las que proporciona Java SE (Swing). El proyecto utiliza Maven para gestión de compilación pero no requiere dependencias adicionales en `pom.xml` por defecto.
 
-Compilar y ejecutar desde PowerShell:
-
-```powershell
-cd 'C:\Users\ULISE\OneDrive\Escritorio\IEFI-InterfazGrafica'
-# Compilar y empaquetar (sin pruebas)
-mvn -DskipTests package
-
-# Ejecutar desde NetBeans: importa el proyecto Maven y ejecuta la clase `batalla.MainLauncher`.
-# Ejecutar desde línea de comandos (ejemplo):
-# java -cp target\classes;target\dependency\* batalla.MainLauncher
-```
-
-Nota: la forma exacta de ejecutar la GUI desde línea de comandos depende de cómo NetBeans gestione el classpath; lo más sencillo es ejecutar desde NetBeans o crear un JAR ejecutable si lo deseas.
-
 ## Comportamiento de persistencia (Historial de partidas)
 
 - Cuando se guarda una partida desde la pantalla de resultados (`btnGuardarPartida`) la aplicación crea (si no existe) la carpeta `HistorialPartidas/` en la raíz del proyecto.
@@ -73,8 +59,6 @@ IEFI-InterfazGrafica/
 │  └─ test/
 └─ target/
 ```
-
-> Nota: El árbol anterior es un resumen; revisa el paquete `com.mycompany.desafio4.carranza` si hay clases adicionales (este proyecto contiene algunas clases migradas a paquetes diferentes durante el desarrollo).
 
 ## Integrantes y roles
 
