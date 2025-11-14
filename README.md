@@ -76,4 +76,3 @@ Durante el desarrollo se usaron las siguientes ayudas y recursos:
 
 Prompts Ulises: https://chatgpt.com/share/6915c3a6-3e64-8010-8ad7-d0dc58ad400e
 Video Youtube Ulises: https://www.youtube.com/watch?v=L2xczUN9aI0 / https://www.youtube.com/watch?v=LP7_DlIe670
-Video Youtube Lourdes: https://youtu.be/eDXb4pdpums
