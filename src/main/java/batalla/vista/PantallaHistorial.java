@@ -243,6 +243,11 @@ public class PantallaHistorial extends javax.swing.JFrame {
         return jTable1.getSelectedRow();
     }
 
+    public javax.swing.JTable getTable() {
+        return jTable1;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrarPartida;
     private javax.swing.JButton btnCargarPartida;

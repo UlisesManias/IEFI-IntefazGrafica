@@ -6,6 +6,7 @@ import java.util.Random;
  * Clase abstracta que representa un personaje en el juego
  */
 public abstract class Personaje {
+    protected int id;
     protected String nombre;
     protected String apodo;
     protected String tipo;
@@ -16,6 +17,7 @@ public abstract class Personaje {
     protected Arma arma;
     protected int bendiciones;
     protected int bendicionesIniciales; // Guardar bendiciones iniciales
+    protected int derrotas = 0;
     protected int victorias = 0;
     protected int ataquesSupremosUsados = 0;
     protected int armasInvocadas = 0;
@@ -45,6 +47,10 @@ public abstract class Personaje {
                " | Defensa: " + defensa + " | Bendiciones: " + bendiciones + "%" + armaInfo + " ]";
     }
     
+    public int getId() {
+        return id;
+    }
+    
     public String getNombre() { 
         return nombre; 
     }
@@ -65,6 +71,14 @@ public abstract class Personaje {
         return vidaMaxima;
     }
     
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setVida(int vida) { 
         this.vida = vida; 
     }
@@ -77,8 +91,13 @@ public abstract class Personaje {
         return defensa;
     }
     
+    
     public int getBendiciones() { 
         return bendiciones; 
+    }
+    
+    public void setDerrotas(int derrotas) {
+        this.derrotas = derrotas;
     }
     
     public void setBendiciones(int bendiciones) { 
@@ -91,9 +110,9 @@ public abstract class Personaje {
     
     /**
      * Restaura las estadísticas iniciales del personaje
-     */
-    public void restaurarEstadisticasIniciales() {
-        this.vida = this.vidaMaxima;
+    */
+   public void restaurarEstadisticasIniciales() {
+       this.vida = this.vidaMaxima;
         this.bendiciones = this.bendicionesIniciales;
         this.arma = null;
     }
@@ -113,11 +132,26 @@ public abstract class Personaje {
     public void incrementarVictoria() {
         victorias++;
     }
-    
+
+    public void incrementarDerrota() {
+        derrotas++;
+    }
     public int getAtaquesSupremosUsados() {
         return ataquesSupremosUsados;
     }
     
+    public void setVictorias(int victorias) {
+        this.victorias = victorias;
+    }
+
+    public void setAtaquesSupremosUsados(int ataquesSupremosUsados) {
+        this.ataquesSupremosUsados = ataquesSupremosUsados;
+    }
+
+    public void setArmasInvocadas(int armasInvocadas) {
+        this.armasInvocadas = armasInvocadas;
+    }
+
     public void incrementarAtaqueSupremo() {
         ataquesSupremosUsados++;
     }

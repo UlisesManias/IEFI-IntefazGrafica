@@ -1,5 +1,7 @@
 package batalla.controlador;
 
+import batalla.Conexion.BatallaDAO;
+import batalla.Conexion.PersonajeDAO;
 import batalla.modelo.*;
 import batalla.vista.PantallaResultado;
 import batalla.vista.PantallaPrincipal;
@@ -176,53 +178,43 @@ public class ControladorResultado {
         }
     }
     
+    
     private void guardarPartida() {
-        if (partidaGuardada == null) {
-            javax.swing.JOptionPane.showMessageDialog(vista, 
-                "No hay datos de partida para guardar", 
-                "Error", 
-                javax.swing.JOptionPane.ERROR_MESSAGE);
+
+        if (heroe == null || villano == null) {
+            javax.swing.JOptionPane.showMessageDialog(vista,
+                    "No hay datos de batalla para guardar.",
+                    "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        // Crear estadísticas de batalla
-        PartidaGuardada.EstadisticaBatalla stats = new PartidaGuardada.EstadisticaBatalla();
-        stats.setMayorDanio(mayorDanio);
-        stats.setPersonajeMayorDanio(personajeMayorDanio);
-        stats.setTurnos(batallaMasLarga);
-        stats.setGanador(ganadorBatallaMasLarga);
-        
-        // Calcular totales
-        int totalArmasHeroe = 0;
-        int totalArmasVillano = 0;
-        int totalSupremosHeroe = 0;
-        int totalSupremosVillano = 0;
-        
-        for (Personaje p : personajes) {
-            if (p instanceof Heroe) {
-                totalArmasHeroe += p.getArmasInvocadas();
-                totalSupremosHeroe += p.getAtaquesSupremosUsados();
-            } else {
-                totalArmasVillano += p.getArmasInvocadas();
-                totalSupremosVillano += p.getAtaquesSupremosUsados();
-            }
-        }
-        
-        stats.setArmasInvocadasHeroe(totalArmasHeroe);
-        stats.setArmasInvocadasVillano(totalArmasVillano);
-        stats.setAtaquesSupremosHeroe(totalSupremosHeroe);
-        stats.setAtaquesSupremosVillano(totalSupremosVillano);
-        
-        partidaGuardada.getEstadisticas().add(stats);
-        
-        // Guardar la partida en un archivo individual dentro de HistorialPartidas/
-        GestorPersistencia.guardarPartidaComoArchivos(partidaGuardada);
+
+        // ================================
+        // 1) Asegurar que los Personajes existen en la BD
+        // ================================
+        PersonajeDAO pdao = new PersonajeDAO();
+
+        pdao.asegurarPersonajeEnBD(heroe);
+        pdao.asegurarPersonajeEnBD(villano);
+
+        // Determinar ganador como objeto Personaje
+        Personaje ganadorObj =
+                ganador.equals(heroe.getNombre()) ? heroe : villano;
+
+        pdao.asegurarPersonajeEnBD(ganadorObj);
+
+        // ================================
+        // 2) Guardar en tabla batallas
+        // ================================
+        BatallaDAO batallaDAO = new BatallaDAO();
+        batallaDAO.insertarBatalla(heroe, villano, ganadorObj, turnos);
 
         javax.swing.JOptionPane.showMessageDialog(vista,
-            "Partida guardada en la carpeta HistorialPartidas (archivo individual)",
-            "Éxito",
-            javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                "Batalla guardada correctamente en la base de datos.",
+                "Éxito",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }
+
 
     private void volverPrincipal() {
         PantallaPrincipal pantallaPrincipal = new PantallaPrincipal();
